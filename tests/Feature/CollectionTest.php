@@ -18,4 +18,16 @@ class CollectionTest extends TestCase
         foreach ($collection as $key => $value)
             $this->assertEquals($key + 1, $value);
     }
+
+    public function testCrud()
+    {
+        $collection = collect([]);
+        $collection->push(1, 2, 3, 4, 5);
+        $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5], $collection->all());
+
+        $result = $collection->pop();
+        $this->assertEquals(5, $result);
+        $this->assertEqualsCanonicalizing([1, 2, 3, 4], $collection->all());
+    }
+
 }
