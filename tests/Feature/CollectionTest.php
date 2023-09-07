@@ -397,4 +397,12 @@ class CollectionTest extends TestCase
             return $value === 9;
         }));
     }
+
+    public function testOrdering()
+    {
+        $collection = collect([1, 2, 3, 5, 4, 8, 9, 6]);
+
+        $result = $collection->sort();
+        $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5, 6, 8, 9], $result->all());
+    }
 }
