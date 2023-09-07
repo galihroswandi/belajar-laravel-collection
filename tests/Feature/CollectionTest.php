@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Data\Person;
+use Illuminate\Support\LazyCollection;
 use Tests\TestCase;
 
 class CollectionTest extends TestCase
@@ -439,5 +440,20 @@ class CollectionTest extends TestCase
         // reduce(1, 2) = 3
         // reduce(3, 4) = 5
         // reduce(5, 6) = 7
+    }
+
+    public function testLazyCollection()
+    {
+        $collection = LazyCollection::make(function () {
+            $value = 0;
+
+            while (true) {
+                yield $value;
+                $value++;
+            }
+        });
+
+        $result = $collection->take(10);
+        $this->assertEquals([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], $result->all());
     }
 }
