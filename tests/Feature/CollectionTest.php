@@ -404,5 +404,8 @@ class CollectionTest extends TestCase
 
         $result = $collection->sort();
         $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5, 6, 8, 9], $result->all());
+
+        $result2 = $collection->sortDesc();
+        $this->assertEqualsCanonicalizing([9, 8, 6, 5, 4, 3, 2, 1], $result2->all());
     }
 }
