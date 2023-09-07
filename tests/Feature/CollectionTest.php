@@ -425,4 +425,19 @@ class CollectionTest extends TestCase
         $result4 = $collection->max();
         $this->assertEquals(9, $result4);
     }
+
+    public function testReduce()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+        $result = $collection->redure(function ($carry, $item) {
+            return $carry + $item;
+        });
+
+        $this->assertEquals(45, $result);
+
+        // reduce(1, 2) = 3
+        // reduce(3, 4) = 5
+        // reduce(5, 6) = 7
+    }
 }
