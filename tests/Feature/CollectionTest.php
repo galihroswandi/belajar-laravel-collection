@@ -218,4 +218,14 @@ class CollectionTest extends TestCase
             "Doe" => 80
         ], $result2->all());
     }
+
+    public function testTesting()
+    {
+        $collection = collect(["Jhon", "Doe", "Setiawan"]);
+
+        $this->assertTrue($collection->contains("Jhon"));
+        $this->assertTrue($collection->contains(function ($value, $key) {
+            return $value === "Jhon";
+        }));
+    }
 }
