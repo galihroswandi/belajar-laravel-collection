@@ -171,4 +171,31 @@ class CollectionTest extends TestCase
         $this->assertEqualsCanonicalizing("Jhon-Doe_Setiawan", $collection->join("-", "_"));
         $this->assertEqualsCanonicalizing("Jhon, Doe and Setiawan", $collection->join(", ", " and "));
     }
+
+    public function testFilter()
+    {
+        $collection = collect([
+            "Jhon" => 100,
+            "Doe" => 80,
+            "Setiawan" => 90
+        ]);
+        $result = $collection->filter(function ($value, $key) {
+            return $value >= 90;
+        });
+
+        $this->assertEqualsCanonicalizing([
+            "Jhon" => 100,
+            "Setiawan" => 90
+        ], $result->all());
+    }
+
+    public function testFilterIndex()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        $result = $collection->filter(function ($value, $key) {
+            return $value % 2 == 0;
+        });
+
+        $this->assertEqualsCanonicalizing([2, 4, 6, 8, 10], $result->all());
+    }
 }
